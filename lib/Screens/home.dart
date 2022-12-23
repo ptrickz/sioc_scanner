@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -40,17 +41,50 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _scanBarcode = barcodeScanRes;
     });
-    if (barcodeScanRes != "-1") {
+    if (barcodeScanRes.contains("SIOC")) {
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => Result(itemName: barcodeScanRes)));
+    } else if (barcodeScanRes == "-1") {
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15))),
+              title: const Center(
+                child: Text(
+                  "No Code Was Scanned!",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              content: const Text(
+                  "You have not scanned any code. \n Please Try again."),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("Ok")),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      scanQR();
+                    },
+                    child: const Text("Scan Again")),
+              ],
+            );
+          });
     } else {
       showDialog(
           barrierDismissible: false,
           context: context,
           builder: (context) {
             return AlertDialog(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15))),
               title: const Center(
                 child: Text(
                   "Invalid Code!",
@@ -63,14 +97,14 @@ class _HomePageState extends State<HomePage> {
                 TextButton(
                     onPressed: () {
                       Navigator.pop(context);
-                      scanQR();
                     },
-                    child: const Text("Scan Again")),
+                    child: const Text("Ok")),
                 TextButton(
                     onPressed: () {
                       Navigator.pop(context);
+                      scanQR();
                     },
-                    child: const Text("Ok")),
+                    child: const Text("Scan Again")),
               ],
             );
           });
@@ -114,6 +148,8 @@ class _HomePageState extends State<HomePage> {
                             borderRadius: BorderRadius.circular(8))),
                     onPressed: () {
                       scanQR();
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //     builder: (context) => const TesterDB()));
                     },
                     icon: const Icon(Icons.qr_code_scanner),
                     label: const Text("Scan Code")),
