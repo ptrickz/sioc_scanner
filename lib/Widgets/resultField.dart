@@ -1,7 +1,3 @@
-///                                                        ///
-///============= Username TextFormField Widget ============///
-///                                                        ///
-
 import 'package:flutter/material.dart';
 
 class ResultField extends StatefulWidget {
@@ -31,7 +27,7 @@ class _ResultFieldState extends State<ResultField> {
                 filled: true,
                 fillColor: Colors.white,
                 disabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(5),
                   borderSide: const BorderSide(width: 0, color: Colors.white),
                 ),
               ))),

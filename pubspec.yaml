@@ -37,9 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_barcode_scanner: ^2.0.0
 
-  #firestore database
-  cloud_firestore: ^4.2.0
-  firebase_core: ^2.4.0
+  #google sheets database
+  gsheets: ^0.4.2
 
 dev_dependencies:
   flutter_test:

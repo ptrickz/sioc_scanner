@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:sioc_scanner/Screens/result.dart';
+import 'package:sioc_scanner/Screens/addAssets.dart';
+import 'package:sioc_scanner/Screens/scanRes.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => Result(itemName: barcodeScanRes)));
+              builder: (context) => ScanResult(itemID: barcodeScanRes)));
     } else if (barcodeScanRes == "-1") {
       showDialog(
           barrierDismissible: false,
@@ -116,7 +116,27 @@ class _HomePageState extends State<HomePage> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 247, 247, 247),
+        backgroundColor: Colors.grey[200],
+        appBar: AppBar(
+          backgroundColor: Colors.grey[200],
+          elevation: 0,
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const AddAssets()));
+              },
+              child: const Text(
+                "Add Assets",
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            )
+          ],
+        ),
         body: SizedBox(
           width: width,
           height: height,
@@ -149,7 +169,9 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () {
                       scanQR();
                       // Navigator.of(context).push(MaterialPageRoute(
-                      //     builder: (context) => const TesterDB()));
+                      //     builder: (context) => const ScanResult(
+                      //           itemID: "SIOC-Asset-1999",
+                      //         )));
                     },
                     icon: const Icon(Icons.qr_code_scanner),
                     label: const Text("Scan Code")),
