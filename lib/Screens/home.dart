@@ -155,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Image.asset(
-                "assets/QRscan.png",
+                "assets/scanQR.png",
                 width: width * 0.9,
                 height: height * 0.55,
               ),
