@@ -53,19 +53,34 @@ class _ScanResultState extends State<ScanResult> {
           elevation: 0,
           title: const Text(
             "Scanned Item",
-            style: TextStyle(color: Colors.blue),
+            style: TextStyle(color: Colors.black),
           ),
           centerTitle: true,
           automaticallyImplyLeading: false,
           backgroundColor: Colors.grey[200],
-          leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(
-                Icons.arrow_back_ios_new,
-                color: Colors.blue,
-              )),
+          leadingWidth: 100,
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: const [
+                Icon(
+                  Icons.arrow_back_ios_new,
+                  color: Colors.blue,
+                ),
+                Text(
+                  "Home",
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
         body: Container(
             color: Colors.grey[200],
@@ -80,12 +95,12 @@ class _ScanResultState extends State<ScanResult> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            buildInfoField("Item Name:", "${asset!.item}"),
+                            buildInfoField("Item ID:", "${asset!.item}"),
                             buildInfoField(
                                 "Asset Number:",
                                 asset!.assetNumber!.isNotEmpty
                                     ? "${asset!.assetNumber}"
-                                    : "Not Available"),
+                                    : "N/A"),
                             buildInfoField(
                                 "Description:", "${asset!.description}"),
                             buildInfoField(
@@ -106,7 +121,7 @@ class _ScanResultState extends State<ScanResult> {
                                 "Remark:",
                                 asset!.remark!.isNotEmpty
                                     ? "${asset!.remark}"
-                                    : "Not Available"),
+                                    : "N/A"),
                           ],
                         ),
                       );
@@ -120,6 +135,9 @@ class _ScanResultState extends State<ScanResult> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: const [
                           CircularProgressIndicator.adaptive(),
+                          SizedBox(
+                            height: 100,
+                          ),
                           Text(
                             "Loading data...",
                             style: TextStyle(

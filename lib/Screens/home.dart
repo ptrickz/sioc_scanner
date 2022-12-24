@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          '#0000ff', 'Cancel', false, ScanMode.QR);
+          '#2196f3', 'Cancel', false, ScanMode.QR);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _scanBarcode = barcodeScanRes;
     });
-    if (barcodeScanRes.contains("SIOC")) {
+    if (barcodeScanRes.contains("SIOC-Asset-")) {
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage> {
           height: height,
           child: Center(
               child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const Padding(
                 padding: EdgeInsets.only(top: 50),
@@ -156,25 +156,27 @@ class _HomePageState extends State<HomePage> {
               ),
               Image.asset(
                 "assets/QRscan.png",
-                width: width * 0.8,
-                height: height * 0.5,
+                width: width * 0.9,
+                height: height * 0.55,
               ),
               SizedBox(
-                width: width * 0.8,
+                width: width * 0.6,
                 height: 50,
                 child: ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8))),
+                            borderRadius: BorderRadius.circular(15))),
                     onPressed: () {
                       scanQR();
-                      // Navigator.of(context).push(MaterialPageRoute(
-                      //     builder: (context) => const ScanResult(
-                      //           itemID: "SIOC-Asset-1999",
-                      //         )));
                     },
-                    icon: const Icon(Icons.qr_code_scanner),
-                    label: const Text("Scan Code")),
+                    icon: const Icon(
+                      Icons.qr_code_scanner,
+                      size: 25,
+                    ),
+                    label: const Text(
+                      "Scan Code",
+                      style: TextStyle(fontSize: 20),
+                    )),
               )
             ],
           )),

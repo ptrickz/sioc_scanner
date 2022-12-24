@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sioc_scanner/Api/sheets_api.dart';
 import 'package:sioc_scanner/Model/assets.dart';
+import 'package:sioc_scanner/Screens/home.dart';
 
 class AddAssets extends StatefulWidget {
   const AddAssets({
@@ -60,26 +61,27 @@ class _AddAssetsState extends State<AddAssets> {
         ),
         automaticallyImplyLeading: false,
         leadingWidth: 100,
-        leading: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(
-                  Icons.arrow_back_ios_new,
-                  color: Colors.blue,
-                )),
-            const Text(
-              "Back",
-              style: TextStyle(
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: const [
+              Icon(
+                Icons.arrow_back_ios_new,
                 color: Colors.blue,
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
               ),
-            )
-          ],
+              Text(
+                "Home",
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              )
+            ],
+          ),
         ),
         backgroundColor: Colors.grey[200],
         elevation: 0,
@@ -104,7 +106,44 @@ class _AddAssetsState extends State<AddAssets> {
                   remark: remark.text,
                 );
                 insertAssets(asset);
-                Navigator.pop(context);
+                showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15))),
+                        title: const Center(
+                          child: Text(
+                            "Asset was saved!",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(asset.description.toString()),
+                            const Text('has been added.'),
+                            const Text('Tap "Add More" to add more assets.')
+                          ],
+                        ),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const HomePage()));
+                              },
+                              child: const Text("Ok")),
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text("Add More")),
+                        ],
+                      );
+                    });
               }
             },
             child: const Text(
