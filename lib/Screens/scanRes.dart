@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sioc_scanner/Api/sheets_api.dart';
 import 'package:sioc_scanner/Model/assets.dart';
+import 'package:sioc_scanner/Widgets/loading.dart';
 
 import '../Widgets/resultField.dart';
 
@@ -126,28 +127,13 @@ class _ScanResultState extends State<ScanResult> {
                         ),
                       );
                     }
-                    return Container(
-                      color: Colors.transparent,
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: const [
-                          CircularProgressIndicator.adaptive(),
-                          SizedBox(
-                            height: 100,
-                          ),
-                          Text(
-                            "Loading data...",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.blue,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          )
-                        ],
-                      ),
+                    return SingleChildScrollView(
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: 7,
+                          itemBuilder: (c, s) {
+                            return const LoadingWidget();
+                          }),
                     );
                   }),
             )));

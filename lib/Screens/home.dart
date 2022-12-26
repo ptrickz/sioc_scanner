@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:sioc_scanner/Screens/addAssets.dart';
 import 'package:sioc_scanner/Screens/scanRes.dart';
+import 'package:sioc_scanner/Widgets/loading.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -168,6 +169,8 @@ class _HomePageState extends State<HomePage> {
                             borderRadius: BorderRadius.circular(15))),
                     onPressed: () {
                       scanQR();
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //     builder: (context) => const LoadingWidget()));
                     },
                     icon: const Icon(
                       Icons.qr_code_scanner,
